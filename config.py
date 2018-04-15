@@ -6,13 +6,14 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess str'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
-    FLASKY_MAIL_SENDER = 'example@qq.com'
+    FLASKY_MAIL_SENDER = '1810962886@qq.com'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
     MAIL_SERVER = 'smtp.qq.com'
     MAIL_PORT = 465
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    FLASKY_POSTS_PER_PAGE = os.environ.get('FLASKY_POSTS_PER_PAGE') or 20
 
     @staticmethod
     def init_app(app):

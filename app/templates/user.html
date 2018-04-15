@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
-
+{% import "_macros.html" as macros %}
 {% block title %}Flaskypr{% endblock %}
 
 
 {% block page_content %}
 
-    <div class="page-header">
+    <div class="page-header"> <img src="{{ user.gravatar(size=256) }}" alt="" class="img-rounded profile-thumbnail">
+
+    <div class="profile-header">
         <h1>{{ user.username }}</h1>
         {% if user.name or user.location %}
         <p>
@@ -35,4 +37,12 @@
         </a>
         {% endif %}
     </div>
+    </div>
+    <h3>Posts by {{ user.username }}</h3>
+    {% include '_posts.html' %}
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.user', username=user.username) }}
+</div>
+{% endif %}
 {% endblock %}
