@@ -1,0 +1,13 @@
+Dear {{ user.username }},
+
+Welcom to Flaskypr!
+
+To confirm your account please :
+
+<p><a href="{{ url_for('auth.confirm', token=token, _external=True) }}">click here</a></p>
+
+Sincerely,
+
+The flaskypr team
+
+Note: replies to this emial address are not monitored.
