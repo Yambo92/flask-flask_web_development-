@@ -44,10 +44,10 @@
 
 <p>
     <a href="{{ url_for('.followers', username=user.username) }}">
-        Follows:<span class="badge">{{ user.followers.count() }}</span>
+        Follows:<span class="badge">{{ user.followers.count()-1 }}</span>
     </a>
     <a href="{{ url_for('.followed_by', username=user.username) }}">
-        Following:<span class="badge">{{ user.followed.count() }}</span>
+        Following:<span class="badge">{{ user.followed.count()-1 }}</span>
     </a>
 </p>
 

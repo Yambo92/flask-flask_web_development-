@@ -184,6 +184,10 @@ class User(UserMixin, db.Model):
             url=url, hash=hash, size=size, default=default, rating=rating
         )
 
+    @property
+    def followed_posts(self):
+        return Post.query.join(FollowT, FollowT.followed_id == Post.author_id)\
+                .filter(FollowT.follower_id == self.id)
 
 
 
@@ -208,6 +212,15 @@ class User(UserMixin, db.Model):
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
+
+
+    @staticmethod
+    def add_self_follows():
+        for user in User.query.all():
+            if not user.is_following(user):
+                user.follow(user)
+                db.session.add(user)
+                db.session.commit()
 
 
 class Follow(db.Model):
