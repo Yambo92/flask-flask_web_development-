@@ -1,11 +1,13 @@
 
-from flask import render_template, redirect, url_for, flash, abort, request, current_app, make_response
+from flask import render_template, redirect, url_for, flash,\
+    abort, request, current_app, make_response, jsonify
 from .. import db
 from . import main
 from .. decorators import admin_required, permission_required
 from ..models import User, Role, Post, Permission, Comment
 from flask_login import login_required, current_user
 from .forms import EditProfileForm, EditProfileAdminForm, PostForm, CommentForm
+from .. api_1_0 import api
 
 
 @main.route('/all')
@@ -242,7 +244,13 @@ def moderate_disable(id):
                             page=request.args.get('page', 1, type=int)))
 
 
-
+@api.route('/posts/', methods=['POST'])
+def new_post():
+    post = Post.from_json(request.json)
+    post.author = g.current_user
+    db.session.add(post)
+    db.session.commit()
+    return jsonify(post.to_json())
 
 
 
