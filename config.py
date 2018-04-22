@@ -13,7 +13,7 @@ class Config:
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    FLASKY_POSTS_PER_PAGE = os.environ.get('FLASKY_POSTS_PER_PAGE') or 20
+    FLASKY_POSTS_PER_PAGE = os.environ.get('FLASKY_POSTS_PER_PAGE') or 10
     FLASKY_FOLLOWERS_PER_PAGE = 30
     FLASKY_COMMENTS_PER_PAGE = 10
 
