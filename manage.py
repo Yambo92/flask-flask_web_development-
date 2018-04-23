@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+#encoding=utf-8
+
 import os
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
@@ -50,6 +52,22 @@ def profile(length=25, profile_dir=None):
     app.wsgi_app = ProfilerMiddleware(app.wsgi_app, restrictions=[length],
                                       profile_dir=profile_dir)
     app.run()
+
+
+@manager.command
+def deploy():
+    '''Run deployment tasks'''
+    from flask_migrate import upgrade
+    from app.models import Role, User
+
+    #吧数据库迁移到最新修订版
+    upgrade()
+
+    #创建用户角色
+    Role.insert_roles()
+
+    #让所有用户都关注此用户
+    User.add_self_follows()
 
 
 manager.add_command('shell', Shell(make_context=make_shell_context))

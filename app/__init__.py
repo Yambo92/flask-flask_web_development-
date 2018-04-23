@@ -29,6 +29,10 @@ def create_app(config_name):
     moment.init_app(app)
     db.init_app(app)
 
+    if not app.debug and not app.testing and not app.config['SSL_DISABLE']:
+        from flask_sslify import SSLify
+        sslify = SSLify(app)
+
     from .api_1_0 import api as api_1_0_blueprint
     app.register_blueprint(api_1_0_blueprint, url_prefix='/api/v1.0')
 
