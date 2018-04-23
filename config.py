@@ -5,6 +5,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess str'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    SQLALCHEMY_RECORD_QUERIES = True
     FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
     FLASKY_MAIL_SENDER = '1810962886@qq.com'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
@@ -16,6 +17,8 @@ class Config:
     FLASKY_POSTS_PER_PAGE = os.environ.get('FLASKY_POSTS_PER_PAGE') or 10
     FLASKY_FOLLOWERS_PER_PAGE = 30
     FLASKY_COMMENTS_PER_PAGE = 10
+    FLASK_SLOW_DB_QUERY_TIME = 0.5
+    FLASKY_DB_QUERY_TIMEOUT = 0.5
 
     @staticmethod
     def init_app(app):
@@ -30,6 +33,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
 
